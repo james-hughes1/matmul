@@ -15,11 +15,11 @@ int matmul(std::string filename) {
     }
     input_file.close();
 
-    std::vector<int> input_floats(0);
+    std::vector<double> input_floats(0);
     std::string nextstr;
     for (int i = 0; i < file_chars.size(); i++) {
         nextchar = file_chars[i];
-        if (isdigit(nextchar) or nextchar == '.') {
+        if (isdigit(nextchar) or nextchar == '.' or nextchar == 'e' or nextchar == '-') {
             nextstr += nextchar;
         }
         else {
