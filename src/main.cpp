@@ -1,3 +1,7 @@
+/**
+ * \file main.cpp Main program file that can be run to multiply two matrices.
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -5,6 +9,10 @@
 #include <array>
 
 int matmul(std::string filename) {
+    /**
+     * \brief Multiplies two matrices in a given .txt file
+     * \param filename Path of the relevant input file.
+    */
     std::ifstream input_file;
     input_file.open(filename);
     std::vector<char> file_chars(0);
