@@ -1,1 +1,2 @@
-add_executable(test main.cpp)
+add_executable(main main.cpp)
+ClangFormat(main .)

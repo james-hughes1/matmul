@@ -1,23 +1,25 @@
 /**
  * \file main.cpp Main program file that can be run to multiply two matrices.
-*/
+ */
 
-#include <iostream>
+#include <array>
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <array>
 
-int matmul(std::string filename) {
+int matmul(std::string filename)
+{
     /**
      * \brief Multiplies two matrices in a given .txt file
      * \param filename Path of the relevant input file.
-    */
+     */
     std::ifstream input_file;
     input_file.open(filename);
     std::vector<char> file_chars(0);
     char nextchar;
-    while(! input_file.eof()){
+    while (!input_file.eof())
+    {
         nextchar = input_file.get();
         file_chars.push_back(nextchar);
     }
@@ -25,13 +27,18 @@ int matmul(std::string filename) {
 
     std::vector<double> input_floats(0);
     std::string nextstr;
-    for (int i = 0; i < file_chars.size(); i++) {
+    for (int i = 0; i < file_chars.size(); i++)
+    {
         nextchar = file_chars[i];
-        if (isdigit(nextchar) or nextchar == '.' or nextchar == 'e' or nextchar == '-') {
+        if (isdigit(nextchar) or nextchar == '.' or nextchar == 'e' or
+            nextchar == '-')
+        {
             nextstr += nextchar;
         }
-        else {
-            if (nextstr.length() > 0) {
+        else
+        {
+            if (nextstr.length() > 0)
+            {
                 input_floats.push_back(std::stod(nextstr));
                 nextstr.clear();
             }
@@ -39,14 +46,17 @@ int matmul(std::string filename) {
     }
     const int p = static_cast<const int>(input_floats[0]);
     const int q = static_cast<const int>(input_floats[1]);
-    const int r = static_cast<const int>(input_floats[2 + p*q + 1]);
+    const int r = static_cast<const int>(input_floats[2 + p * q + 1]);
 
-    for (int i = 0; i < p; i++) {
-        for (int j = 0; j < r; j++) {
+    for (int i = 0; i < p; i++)
+    {
+        for (int j = 0; j < r; j++)
+        {
             double z = 0;
-            for (int k = 0; k < q; k++) {
-                double Aik = input_floats[2 + i*q + k];
-                double Bkj = input_floats[2 + p*q + 2 + k*r + j];
+            for (int k = 0; k < q; k++)
+            {
+                double Aik = input_floats[2 + i * q + k];
+                double Bkj = input_floats[2 + p * q + 2 + k * r + j];
                 z += Aik * Bkj;
             }
             std::cout << z << " ";
@@ -56,7 +66,8 @@ int matmul(std::string filename) {
     return 0;
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
     matmul(argv[1]);
     return 0;
 }
