@@ -44,8 +44,9 @@ std::vector<double> multiply::read_matrix(std::string filepath) {
 
 std::vector<double> multiply::matmul(std::vector<double> matrix_pair_data) {
     /**
-     * \brief Multiplies two matrices given as a flat vector.
-     * \param filename Path of the relevant input file.
+     * \brief Multiplies two matrices.
+     * \param matrix_pair_data Vector containing data relating to both matrices.
+     * \returns Result of matrix calculation stored as a vector.
      */
 
     const int p = static_cast<const int>(matrix_pair_data[0]);
@@ -70,6 +71,10 @@ std::vector<double> multiply::matmul(std::vector<double> matrix_pair_data) {
 }
 
 int multiply::display_matrix(std::vector<double> matrix_data) {
+    /**
+     * \brief Displays a matrix.
+     * \param matrix_data Size and actual entries for the matrix.
+     */
     const int n_rows = static_cast<const int>(matrix_data[0]);
     const int n_cols = static_cast<const int>(matrix_data[1]);
     for (int i = 0; i < n_rows; i++) {
