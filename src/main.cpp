@@ -3,13 +3,10 @@
  */
 
 #include "multiply/include/multiply.h"
-#include <array>
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <vector>
 
 int main(int argc, char **argv) {
-    multiply::matmul(argv[1]);
+    std::vector<double> file_floats   = multiply::read_matrix(argv[1]);
+    std::vector<double> matrix_result = multiply::matmul(file_floats);
+    multiply::display_matrix(matrix_result);
     return 0;
 }

@@ -9,13 +9,14 @@
 #include <string>
 #include <vector>
 
-int multiply::matmul(std::string filename) {
+std::vector<double> multiply::read_matrix(std::string filepath) {
     /**
-     * \brief Multiplies two matrices in a given .txt file
-     * \param filename Path of the relevant input file.
+     * \brief Reads in a .txt file and converts its contents to a vector of
+     * data. \param filepath Path of the relevant input file. \returns Vector of
+     * floats contained in the text file.
      */
     std::ifstream input_file;
-    input_file.open(filename);
+    input_file.open(filepath);
     std::vector<char> file_chars(0);
     char nextchar;
     while (!input_file.eof()) {
@@ -38,19 +39,42 @@ int multiply::matmul(std::string filename) {
             }
         }
     }
-    const int p = static_cast<const int>(input_floats[0]);
-    const int q = static_cast<const int>(input_floats[1]);
-    const int r = static_cast<const int>(input_floats[2 + p * q + 1]);
+    return input_floats;
+}
+
+std::vector<double> multiply::matmul(std::vector<double> matrix_pair_data) {
+    /**
+     * \brief Multiplies two matrices given as a flat vector.
+     * \param filename Path of the relevant input file.
+     */
+
+    const int p = static_cast<const int>(matrix_pair_data[0]);
+    const int q = static_cast<const int>(matrix_pair_data[1]);
+    const int r = static_cast<const int>(matrix_pair_data[2 + p * q + 1]);
+    std::vector<double> C(2 + p * r);
+    C[0] = p;
+    C[1] = r;
 
     for (int i = 0; i < p; i++) {
         for (int j = 0; j < r; j++) {
-            double z = 0;
+            double Cij = 0;
             for (int k = 0; k < q; k++) {
-                double Aik = input_floats[2 + i * q + k];
-                double Bkj = input_floats[2 + p * q + 2 + k * r + j];
-                z += Aik * Bkj;
+                double Aik = matrix_pair_data[2 + i * q + k];
+                double Bkj = matrix_pair_data[2 + p * q + 2 + k * r + j];
+                Cij += Aik * Bkj;
             }
-            std::cout << z << " ";
+            C[2 + i * r + j] = Cij;
+        }
+    }
+    return C;
+}
+
+int multiply::display_matrix(std::vector<double> matrix_data) {
+    const int n_rows = static_cast<const int>(matrix_data[0]);
+    const int n_cols = static_cast<const int>(matrix_data[1]);
+    for (int i = 0; i < n_rows; i++) {
+        for (int j = 0; j < n_cols; j++) {
+            std::cout << matrix_data[2 + i * n_cols + j] << " ";
         }
         std::cout << std::endl;
     }
