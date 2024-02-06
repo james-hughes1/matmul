@@ -3,7 +3,7 @@ BasedOnStyle: LLVM
 AlignAfterOpenBracket: true
 UseTab: Never
 IndentWidth: 4
-BreakBeforeBraces: Allman
+BreakBeforeBraces: Attach
 AllowShortIfStatementsOnASingleLine: false
 AlignConsecutiveMacros: true
 AlignConsecutiveAssignments: true

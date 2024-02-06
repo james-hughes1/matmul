@@ -9,8 +9,7 @@
 #include <string>
 #include <vector>
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
     multiply::matmul(argv[1]);
     return 0;
 }

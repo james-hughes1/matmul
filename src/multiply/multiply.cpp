@@ -9,8 +9,7 @@
 #include <string>
 #include <vector>
 
-int multiply::matmul(std::string filename)
-{
+int multiply::matmul(std::string filename) {
     /**
      * \brief Multiplies two matrices in a given .txt file
      * \param filename Path of the relevant input file.
@@ -19,8 +18,7 @@ int multiply::matmul(std::string filename)
     input_file.open(filename);
     std::vector<char> file_chars(0);
     char nextchar;
-    while (!input_file.eof())
-    {
+    while (!input_file.eof()) {
         nextchar = input_file.get();
         file_chars.push_back(nextchar);
     }
@@ -28,18 +26,13 @@ int multiply::matmul(std::string filename)
 
     std::vector<double> input_floats(0);
     std::string nextstr;
-    for (int i = 0; i < file_chars.size(); i++)
-    {
+    for (int i = 0; i < file_chars.size(); i++) {
         nextchar = file_chars[i];
         if (isdigit(nextchar) or nextchar == '.' or nextchar == 'e' or
-            nextchar == '-')
-        {
+            nextchar == '-') {
             nextstr += nextchar;
-        }
-        else
-        {
-            if (nextstr.length() > 0)
-            {
+        } else {
+            if (nextstr.length() > 0) {
                 input_floats.push_back(std::stod(nextstr));
                 nextstr.clear();
             }
@@ -49,13 +42,10 @@ int multiply::matmul(std::string filename)
     const int q = static_cast<const int>(input_floats[1]);
     const int r = static_cast<const int>(input_floats[2 + p * q + 1]);
 
-    for (int i = 0; i < p; i++)
-    {
-        for (int j = 0; j < r; j++)
-        {
+    for (int i = 0; i < p; i++) {
+        for (int j = 0; j < r; j++) {
             double z = 0;
-            for (int k = 0; k < q; k++)
-            {
+            for (int k = 0; k < q; k++) {
                 double Aik = input_floats[2 + i * q + k];
                 double Bkj = input_floats[2 + p * q + 2 + k * r + j];
                 z += Aik * Bkj;

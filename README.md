@@ -10,15 +10,21 @@ To compile the source code you need to run the following in the terminal:
 
 `cmake --build build`
 
-At this point there may be errors that are thrown because the code has been found to have formatting errors conflicting with `.clang-format`. These can be fixed with:
+At this point there may be errors that are thrown because the code has been found to have formatting errors conflicting with `.clang-format`. These can be fixed with
 
-`clang-format -i src/main.cpp`
+`clang-format -i <filepath>`
 
-To build the documentation run
+or even,
+
+`find src/ -iname *.h -o -iname *.cpp | xargs clang-format -i`
+
+for all project files. To build the documentation run
 
 `cmake --build build -t doxygen`
 
-and then from docs/latex, run simply `make` to generate the pdf.
+`make -C docs/latex/`
+
+to generate the pdf.
 
 ## Running the code
 

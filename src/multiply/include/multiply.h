@@ -8,8 +8,7 @@
  * contained in the namespace "multiply"
  *
  */
-namespace multiply
-{
+namespace multiply {
 int matmul(std::string filename);
 } // namespace multiply
 
