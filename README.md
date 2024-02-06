@@ -32,4 +32,6 @@ To use the executable use the command
 
 `./bin/main Matrix.txt`
 
-which uses the inputs given in Matrix.txt.
+which uses the inputs given in Matrix.txt. To run the unit-testing suite, use the command
+
+`./bin/test_multiply`
