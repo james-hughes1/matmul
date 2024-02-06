@@ -9,6 +9,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
+#set(CMAKE_CXX_FLAGS "-O3 -Wall -Werror -Wextra")
+
 include(Testing)
 include(Doxygen)
 include(ClangFormat)

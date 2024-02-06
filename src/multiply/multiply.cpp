@@ -4,6 +4,7 @@
 
 #include "include/multiply.h"
 #include <array>
+#include <bitset>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -55,6 +56,10 @@ std::vector<double> multiply::matmul(std::vector<double> matrix_pair_data) {
     std::vector<double> C(2 + p * r);
     C[0] = p;
     C[1] = r;
+
+    if (matrix_pair_data[1] != matrix_pair_data[2 + p * q]) {
+        throw std::invalid_argument("Matrix dimensions are not compatible.");
+    }
 
     for (int i = 0; i < p; i++) {
         for (int j = 0; j < r; j++) {

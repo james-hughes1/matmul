@@ -33,6 +33,6 @@ TEST(multiply, multiply_valid) {
 }
 
 TEST(multiply, multiply_invalid) {
-    std::vector<double> test_matrix_B = multiply::read_matrix("test/Matrix_Test_B_input.txt");
-    EXPECT_DOUBLE_EQ(multiply::matmul(test_matrix_B)[10], 1.0) << "Multiplying a mis-matched pair of matrices doesn't throw the right error.";
+    std::vector<double> test_matrix_B = multiply::read_matrix("test/Matrix_Test_B_bad_input.txt");
+    EXPECT_THROW(multiply::matmul(test_matrix_B), std::invalid_argument) << "Multiplying a mis-matched pair of matrices doesn't throw the right error.";
 }
