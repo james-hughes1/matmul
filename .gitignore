@@ -3,3 +3,4 @@
 .vscode
 docs
 ClassNotes.md
+callgrind.out*

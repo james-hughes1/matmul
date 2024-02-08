@@ -8,9 +8,18 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <tuple>
 #include <vector>
 
-std::vector<double> multiply::read_matrix(std::string filepath) {
+Matrix::Matrix(int n_rows, int n_cols) {
+    this->n_rows = n_rows;
+    this->n_cols = n_cols;
+    this->data   = new double[n_rows * n_cols];
+}
+// Matrix::~Matrix() { delete[] this->data; }
+double &Matrix::operator()(int i, int j) { return this->data[i * n_cols + j]; }
+
+std::tuple<Matrix, Matrix> multiply::read_matrix(std::string filepath) {
     /**
      * \brief Reads in a .txt file and converts its contents to a vector of
      * data. \param filepath Path of the relevant input file. \returns Vector of
@@ -40,51 +49,61 @@ std::vector<double> multiply::read_matrix(std::string filepath) {
             }
         }
     }
-    return input_floats;
+
+    const int p = static_cast<const int>(input_floats[0]);
+    const int q = static_cast<const int>(input_floats[1]);
+    const int r = static_cast<const int>(input_floats[2 + p * q]);
+    const int s = static_cast<const int>(input_floats[3 + p * q]);
+
+    Matrix A = Matrix(p, q);
+    Matrix B = Matrix(r, s);
+
+    for (int i = 0; i < p * q; i++) {
+        A(i / q, i % q) = input_floats[2 + i];
+    }
+    for (int i = 0; i < r * s; i++) {
+        B(i / s, i % s) = input_floats[4 + p * q + i];
+    }
+
+    return std::make_tuple(A, B);
 }
 
-std::vector<double> multiply::matmul(std::vector<double> matrix_pair_data) {
+Matrix multiply::matmul(Matrix A, Matrix B) {
     /**
      * \brief Multiplies two matrices.
-     * \param matrix_pair_data Vector containing data relating to both matrices.
+     * \param A First matrix.
+     * \param B Second matrix.
      * \returns Result of matrix calculation stored as a vector.
      */
 
-    const int p = static_cast<const int>(matrix_pair_data[0]);
-    const int q = static_cast<const int>(matrix_pair_data[1]);
-    const int r = static_cast<const int>(matrix_pair_data[2 + p * q + 1]);
-    std::vector<double> C(2 + p * r);
-    C[0] = p;
-    C[1] = r;
-
-    if (matrix_pair_data[1] != matrix_pair_data[2 + p * q]) {
+    if (A.n_cols != B.n_rows) {
         throw std::invalid_argument("Matrix dimensions are not compatible.");
     }
 
-    for (int i = 0; i < p; i++) {
-        for (int j = 0; j < r; j++) {
+    Matrix C = Matrix(A.n_rows, B.n_cols);
+
+    for (int i = 0; i < A.n_rows; i++) {
+        for (int j = 0; j < B.n_cols; j++) {
             double Cij = 0;
-            for (int k = 0; k < q; k++) {
-                double Aik = matrix_pair_data[2 + i * q + k];
-                double Bkj = matrix_pair_data[2 + p * q + 2 + k * r + j];
+            for (int k = 0; k < A.n_cols; k++) {
+                double Aik = A(i, k);
+                double Bkj = B(k, j);
                 Cij += Aik * Bkj;
             }
-            C[2 + i * r + j] = Cij;
+            C(i, j) = Cij;
         }
     }
     return C;
 }
 
-int multiply::display_matrix(std::vector<double> matrix_data) {
+int multiply::display_matrix(Matrix A) {
     /**
      * \brief Displays a matrix.
-     * \param matrix_data Size and actual entries for the matrix.
+     * \param A Matrix to be displayed.
      */
-    const int n_rows = static_cast<const int>(matrix_data[0]);
-    const int n_cols = static_cast<const int>(matrix_data[1]);
-    for (int i = 0; i < n_rows; i++) {
-        for (int j = 0; j < n_cols; j++) {
-            std::cout << matrix_data[2 + i * n_cols + j] << " ";
+    for (int i = 0; i < A.n_rows; i++) {
+        for (int j = 0; j < A.n_cols; j++) {
+            std::cout << A(i, j) << " ";
         }
         std::cout << std::endl;
     }
