@@ -2,3 +2,5 @@
 *build*
 .vscode
 docs
+ClassNotes.md
+callgrind.out*
