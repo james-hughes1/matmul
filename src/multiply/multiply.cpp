@@ -16,7 +16,6 @@ Matrix::Matrix(int n_rows, int n_cols) {
     this->n_cols = n_cols;
     this->data   = new double[n_rows * n_cols];
 }
-// Matrix::~Matrix() { delete[] this->data; }
 double &Matrix::operator()(int i, int j) { return this->data[i * n_cols + j]; }
 
 std::tuple<Matrix, Matrix> multiply::read_matrix(std::string filepath) {

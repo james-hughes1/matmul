@@ -1,6 +1,7 @@
 add_library(multiply_lib
     STATIC
     multiply.cpp
+    method1.cpp
 )
 
 target_include_directories(multiply_lib

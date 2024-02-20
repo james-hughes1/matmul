@@ -17,8 +17,9 @@ class Matrix {
   public:
     int n_rows;
     int n_cols;
-    Matrix(int n_rows, int n_cols);
-    //~Matrix();
+    Matrix(
+        int n_rows,
+        int n_cols); // ~Matrix() { delete[] this->data; } See 'Rule of Three'
     double &operator()(int i, int j);
 };
 
