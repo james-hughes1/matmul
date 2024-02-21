@@ -2,5 +2,5 @@
 *build*
 .vscode
 docs
-ClassNotes.md
+*.ipynb
 callgrind.out*

@@ -80,8 +80,6 @@ std::tuple<Matrix, Matrix> multiply::gen_matrix(std::string n_rows_A,
     std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
     std::uniform_int_distribution<> distrib(-10, 10);
 
-    std::cout << "FLag" << std::endl;
-
     const int p = std::stoi(n_rows_A);
     const int q = std::stoi(n_cols_A);
     const int r = std::stoi(n_rows_B);
@@ -89,8 +87,6 @@ std::tuple<Matrix, Matrix> multiply::gen_matrix(std::string n_rows_A,
 
     Matrix A = Matrix(p, q);
     Matrix B = Matrix(r, s);
-
-    std::cout << "FLag" << std::endl;
 
     for (int i = 0; i < p * q; i++) {
         A(i / q, i % q) = distrib(gen) / 10.0;
@@ -118,13 +114,9 @@ Matrix multiply::matmul(Matrix A, Matrix B) {
 
     for (int i = 0; i < A.n_rows; i++) {
         for (int j = 0; j < B.n_cols; j++) {
-            double Cij = 0;
             for (int k = 0; k < A.n_cols; k++) {
-                double Aik = A(i, k);
-                double Bkj = B(k, j);
-                Cij += Aik * Bkj;
+                C(i, j) += A(i, k) * B(k, j);
             }
-            C(i, j) = Cij;
         }
     }
     return C;

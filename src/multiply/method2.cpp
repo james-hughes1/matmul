@@ -2,7 +2,7 @@
  * \file multiply.cpp Contains useful functions for multiplying matrices.
  */
 
-#include "include/method1.h"
+#include "include/method2.h"
 #include "include/multiply.h"
 #include <array>
 #include <bitset>
@@ -12,7 +12,7 @@
 #include <tuple>
 #include <vector>
 
-Matrix method1::matmul(Matrix A, Matrix B) {
+Matrix method2::matmul(Matrix A, Matrix B) {
     /**
      * \brief Multiplies two matrices.
      * \param A First matrix.
@@ -24,13 +24,21 @@ Matrix method1::matmul(Matrix A, Matrix B) {
         throw std::invalid_argument("Matrix dimensions are not compatible.");
     }
 
+    Matrix B_T = Matrix(B.n_cols, B.n_rows);
+
+    for (int i = 0; i < B.n_cols; i++) {
+        for (int j = 0; j < B.n_rows; j++) {
+            B_T(i, j) = B(j, i);
+        }
+    }
+
     Matrix C = Matrix(A.n_rows, B.n_cols);
 
     for (int i = 0; i < A.n_rows; i++) {
         for (int k = 0; k < A.n_cols; k++) {
             double Aik = A(i, k);
             for (int j = 0; j < B.n_cols; j++) {
-                C(i, j) += Aik * B(k, j);
+                C(i, j) += Aik * B_T(j, k);
             }
         }
     }

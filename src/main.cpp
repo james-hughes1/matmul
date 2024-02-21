@@ -3,6 +3,8 @@
  */
 
 #include "multiply/include/method1.h"
+#include "multiply/include/method2.h"
+#include "multiply/include/method3.h"
 #include "multiply/include/multiply.h"
 #include "timing/include/timing.h"
 
@@ -16,20 +18,11 @@ int main(int argc, char **argv) {
                   : multiply::gen_matrix(argv[1], argv[2], argv[3], argv[4]);
     Matrix A = std::get<0>(matrix_pair);
     Matrix B = std::get<1>(matrix_pair);
-    timing::start_clock();
-
-    Matrix matrix_result = multiply::matmul(A, B);
-    for (int i = 0; i < 99; i++) {
-        Matrix matrix_result = multiply::matmul(A, B);
-    }
-    double t1 = timing::get_split() / 100;
-    std::cout << "Multiplying took " << t1 << " ms" << std::endl;
 
     timing::start_clock();
-    matrix_result = method1::matmul(A, B);
-    for (int i = 0; i < 99; i++) {
-        Matrix matrix_result = method1::matmul(A, B);
+
+    for (int bs = 1; bs <= 260; bs++) {
+        Matrix matrix_result = method3::matmul(A, B, bs);
+        std::cout << bs << " " << timing::get_split() << std::endl;
     }
-    double t2 = timing::get_split() / 100;
-    std::cout << "Multiplying took " << t2 << " ms" << std::endl;
 }
