@@ -22,7 +22,7 @@ TEST(multiply, multiply_valid) {
     auto test_matrices = multiply::read_matrix("test/Matrix_Test_A_input.txt");
     Matrix A = std::get<0>(test_matrices);
     Matrix B = std::get<1>(test_matrices);
-    EXPECT_DOUBLE_EQ(multiply::matmul(A, B)(1,1), 72.0) << "Multiplying a pair of well-defined matrices failed.";
+    EXPECT_DOUBLE_EQ(multiply::matmul(A, B)(1,2), 67.0) << "Multiplying a pair of well-defined matrices failed.";
 }
 
 TEST(multiply, multiply_invalid) {
@@ -36,20 +36,20 @@ TEST(method1, multiply_valid) {
     auto test_matrices = multiply::read_matrix("test/Matrix_Test_A_input.txt");
     Matrix A = std::get<0>(test_matrices);
     Matrix B = std::get<1>(test_matrices);
-    EXPECT_DOUBLE_EQ(method1::matmul(A, B)(1,1), 72.0) << "Multiplying a pair of well-defined matrices failed.";
+    EXPECT_DOUBLE_EQ(method1::matmul(A, B)(1,2), 67.0) << "Multiplying a pair of well-defined matrices failed.";
 }
 
 TEST(method2, multiply_valid) {
     auto test_matrices = multiply::read_matrix("test/Matrix_Test_A_input.txt");
     Matrix A = std::get<0>(test_matrices);
     Matrix B = std::get<1>(test_matrices);
-    EXPECT_DOUBLE_EQ(method2::matmul(A, B)(1,1), 72.0) << "Multiplying a pair of well-defined matrices failed.";
+    EXPECT_DOUBLE_EQ(method2::matmul(A, B)(1,2), 67.0) << "Multiplying a pair of well-defined matrices failed.";
 }
 
 TEST(method3, multiply_valid) {
     auto test_matrices = multiply::read_matrix("test/Matrix_Test_A_input.txt");
     Matrix A = std::get<0>(test_matrices);
     Matrix B = std::get<1>(test_matrices);
-    EXPECT_DOUBLE_EQ(method3::matmul(A, B, 8)(1,1), 72.0) << "Multiplying a pair of well-defined matrices failed.";
+    EXPECT_DOUBLE_EQ(method3::matmul(A, B, 8)(1,2), 67.0) << "Multiplying a pair of well-defined matrices failed.";
 }
 

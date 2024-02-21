@@ -35,10 +35,9 @@ Matrix method2::matmul(Matrix A, Matrix B) {
     Matrix C = Matrix(A.n_rows, B.n_cols);
 
     for (int i = 0; i < A.n_rows; i++) {
-        for (int k = 0; k < A.n_cols; k++) {
-            double Aik = A(i, k);
-            for (int j = 0; j < B.n_cols; j++) {
-                C(i, j) += Aik * B_T(j, k);
+        for (int j = 0; j < B.n_cols; j++) {
+            for (int k = 0; k < A.n_cols; k++) {
+                C(i, j) += A(i, k) * B_T(j, k);
             }
         }
     }

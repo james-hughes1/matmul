@@ -37,3 +37,9 @@
 | O3 1000^2 arrs        | +CB, 16         | 3030
 
 ![Plot](./cacheblocking.png)
+
+## Notes from class
+
+- Mistake in my code with the ordering of indexing from loops.
+- One of the best ways to see optimisation effects is to inspect the assembly code (use g++ -S).
+- Cache resonance plot: the large peaks represent shifting from using L1 to L2 cache, then L3 and so on. At the spikes, you get 'cache thrashing'. The dips are where you get perfect lining up of data in cache due to the stride length.
