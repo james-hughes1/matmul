@@ -11,16 +11,11 @@
 #include <tuple>
 
 int main(int argc, char **argv) {
-
-    std::tuple<Matrix, Matrix> matrix_pair = multiply::read_matrix(argv[1]);
-    Matrix A                               = std::get<0>(matrix_pair);
-    Matrix B                               = std::get<1>(matrix_pair);
-    for (int i = 0; i < 99; i++) {
-        std::tuple<Matrix, Matrix> matrix_pair_2 =
-            multiply::read_matrix(argv[1]);
-        Matrix A = std::get<0>(matrix_pair_2);
-        Matrix B = std::get<1>(matrix_pair_2);
-    }
+    std::tuple<Matrix, Matrix> matrix_pair =
+        argc == 2 ? multiply::read_matrix(argv[1])
+                  : multiply::gen_matrix(argv[1], argv[2], argv[3], argv[4]);
+    Matrix A = std::get<0>(matrix_pair);
+    Matrix B = std::get<1>(matrix_pair);
     timing::start_clock();
 
     Matrix matrix_result = multiply::matmul(A, B);

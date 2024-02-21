@@ -25,6 +25,10 @@ class Matrix {
 
 namespace multiply {
 std::tuple<Matrix, Matrix> read_matrix(std::string filepath);
+std::tuple<Matrix, Matrix> gen_matrix(std::string n_rows_A,
+                                      std::string n_cols_A,
+                                      std::string n_rows_B,
+                                      std::string n_cols_B);
 Matrix matmul(Matrix A, Matrix B);
 int display_matrix(Matrix matrix_data);
 } // namespace multiply

@@ -7,6 +7,7 @@
 #include <bitset>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -36,7 +37,7 @@ std::tuple<Matrix, Matrix> multiply::read_matrix(std::string filepath) {
 
     std::vector<double> input_floats(0);
     std::string nextstr;
-    for (int i = 0; i < file_chars.size(); i++) {
+    for (size_t i = 0; i < file_chars.size(); i++) {
         nextchar = file_chars[i];
         if (isdigit(nextchar) or nextchar == '.' or nextchar == 'e' or
             nextchar == '-') {
@@ -49,10 +50,10 @@ std::tuple<Matrix, Matrix> multiply::read_matrix(std::string filepath) {
         }
     }
 
-    const int p = static_cast<const int>(input_floats[0]);
-    const int q = static_cast<const int>(input_floats[1]);
-    const int r = static_cast<const int>(input_floats[2 + p * q]);
-    const int s = static_cast<const int>(input_floats[3 + p * q]);
+    const int p = static_cast<int>(input_floats[0]);
+    const int q = static_cast<int>(input_floats[1]);
+    const int r = static_cast<int>(input_floats[2 + p * q]);
+    const int s = static_cast<int>(input_floats[3 + p * q]);
 
     Matrix A = Matrix(p, q);
     Matrix B = Matrix(r, s);
@@ -62,6 +63,40 @@ std::tuple<Matrix, Matrix> multiply::read_matrix(std::string filepath) {
     }
     for (int i = 0; i < r * s; i++) {
         B(i / s, i % s) = input_floats[4 + p * q + i];
+    }
+
+    return std::make_tuple(A, B);
+}
+
+std::tuple<Matrix, Matrix> multiply::gen_matrix(std::string n_rows_A,
+                                                std::string n_cols_A,
+                                                std::string n_rows_B,
+                                                std::string n_cols_B) {
+    if (n_cols_A != n_rows_B) {
+        throw std::invalid_argument("Matrix dimensions are not compatible.");
+    }
+
+    std::random_device rd;  // a seed source for the random number engine
+    std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> distrib(-10, 10);
+
+    std::cout << "FLag" << std::endl;
+
+    const int p = std::stoi(n_rows_A);
+    const int q = std::stoi(n_cols_A);
+    const int r = std::stoi(n_rows_B);
+    const int s = std::stoi(n_cols_B);
+
+    Matrix A = Matrix(p, q);
+    Matrix B = Matrix(r, s);
+
+    std::cout << "FLag" << std::endl;
+
+    for (int i = 0; i < p * q; i++) {
+        A(i / q, i % q) = distrib(gen) / 10.0;
+    }
+    for (int i = 0; i < r * s; i++) {
+        B(i / s, i % s) = distrib(gen) / 10.0;
     }
 
     return std::make_tuple(A, B);
