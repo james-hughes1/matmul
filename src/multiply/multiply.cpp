@@ -18,6 +18,22 @@ Matrix::Matrix(int n_rows, int n_cols) {
     this->data   = new double[n_rows * n_cols];
 }
 double &Matrix::operator()(int i, int j) { return this->data[i * n_cols + j]; }
+Matrix::~Matrix() { delete[] data; }
+Matrix::Matrix(Matrix &old_matrix) {
+    n_rows = old_matrix.n_rows;
+    n_cols = old_matrix.n_cols;
+    data   = new double[n_rows * n_cols];
+    for (int i = 0; i < n_rows * n_cols; i++)
+        data[i] = old_matrix.data[i];
+}
+Matrix &Matrix::operator=(Matrix &old_matrix) {
+    n_rows = old_matrix.n_rows;
+    n_cols = old_matrix.n_cols;
+    data   = new double[n_rows * n_cols];
+    for (int i = 0; i < n_rows * n_cols; i++)
+        data[i] = old_matrix.data[i];
+    return *this;
+}
 
 std::tuple<Matrix, Matrix> multiply::read_matrix(std::string filepath) {
     /**
@@ -78,7 +94,7 @@ std::tuple<Matrix, Matrix> multiply::gen_matrix(std::string n_rows_A,
 
     std::random_device rd;  // a seed source for the random number engine
     std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
-    std::uniform_int_distribution<> distrib(-10, 10);
+    std::uniform_int_distribution<> distrib(-1000, 1000);
 
     const int p = std::stoi(n_rows_A);
     const int q = std::stoi(n_cols_A);
@@ -89,10 +105,10 @@ std::tuple<Matrix, Matrix> multiply::gen_matrix(std::string n_rows_A,
     Matrix B = Matrix(r, s);
 
     for (int i = 0; i < p * q; i++) {
-        A(i / q, i % q) = distrib(gen) / 10.0;
+        A(i / q, i % q) = distrib(gen) / 7.0;
     }
     for (int i = 0; i < r * s; i++) {
-        B(i / s, i % s) = distrib(gen) / 10.0;
+        B(i / s, i % s) = distrib(gen) / 7.0;
     }
 
     return std::make_tuple(A, B);
@@ -111,7 +127,6 @@ Matrix multiply::matmul(Matrix A, Matrix B) {
     }
 
     Matrix C = Matrix(A.n_rows, B.n_cols);
-
     for (int i = 0; i < A.n_rows; i++) {
         for (int j = 0; j < B.n_cols; j++) {
             for (int k = 0; k < A.n_cols; k++) {

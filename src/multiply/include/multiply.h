@@ -11,16 +11,15 @@
  */
 
 class Matrix {
-  private:
-    double *data;
-
   public:
+    double *data;
     int n_rows;
     int n_cols;
-    Matrix(
-        int n_rows,
-        int n_cols); // ~Matrix() { delete[] this->data; } See 'Rule of Three'
+    Matrix(int n_rows, int n_cols);
     double &operator()(int i, int j);
+    ~Matrix();
+    Matrix(Matrix &old_matrix);
+    Matrix &operator=(Matrix &old_matrix);
 };
 
 namespace multiply {

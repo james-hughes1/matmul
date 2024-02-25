@@ -18,27 +18,24 @@ int main(int argc, char **argv) {
                   : multiply::gen_matrix(argv[1], argv[2], argv[3], argv[4]);
     Matrix A = std::get<0>(matrix_pair);
     Matrix B = std::get<1>(matrix_pair);
-
     timing::start_clock();
-
     for (int i = 1; i <= 10; i++) {
         Matrix matrix_result = multiply::matmul(A, B);
     }
-
-    std::cout << "Original, flat arrays&cont. access "
+    std::cout << "Original, flat arrays & cont. access: "
               << timing::get_split() / 10 << " ms" << std::endl;
 
     for (int i = 1; i <= 10; i++) {
         Matrix matrix_result = method2::matmul(A, B);
     }
 
-    std::cout << "+Transpose " << timing::get_split() / 10 << " ms"
+    std::cout << "+Transpose: " << timing::get_split() / 10 << " ms"
               << std::endl;
 
     for (int i = 1; i <= 10; i++) {
         Matrix matrix_result = method3::matmul(A, B, 8);
     }
 
-    std::cout << "+Cache blocking; 8 " << timing::get_split() / 10 << " ms"
+    std::cout << "+Cache blocking; 8: " << timing::get_split() / 10 << " ms"
               << std::endl;
 }
