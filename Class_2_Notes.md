@@ -38,6 +38,8 @@
 
 ![Plot](./cacheblocking.png)
 
+![Plot](./cacheresonance.png)
+
 ## Notes from class
 
 - Mistake in my code with the ordering of indexing from loops.
