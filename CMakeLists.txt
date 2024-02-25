@@ -19,3 +19,4 @@ Doxygen(src docs)
 
 add_subdirectory(src)
 add_subdirectory(test)
+add_subdirectory(resonance)
