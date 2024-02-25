@@ -30,6 +30,7 @@ std::tuple<Matrix, Matrix> gen_matrix(std::string n_rows_A,
                                       std::string n_cols_B);
 Matrix matmul(Matrix A, Matrix B);
 int display_matrix(Matrix matrix_data);
+Matrix transpose(Matrix A);
 } // namespace multiply
 
 #endif // MULTIPLY INCLUDE

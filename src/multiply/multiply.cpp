@@ -150,3 +150,13 @@ int multiply::display_matrix(Matrix A) {
     }
     return 0;
 }
+
+Matrix multiply::transpose(Matrix A) {
+    Matrix A_T = Matrix(A.n_cols, A.n_rows);
+    for (int i = 0; i < A.n_cols; i++) {
+        for (int j = 0; j < A.n_rows; j++) {
+            A_T(i, j) = A(j, i);
+        }
+    }
+    return A_T;
+}
