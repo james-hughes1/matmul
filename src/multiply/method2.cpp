@@ -36,9 +36,11 @@ Matrix method2::matmul(Matrix A, Matrix B) {
 
     for (int i = 0; i < A.n_rows; i++) {
         for (int j = 0; j < B.n_cols; j++) {
+            double Cij = 0;
             for (int k = 0; k < A.n_cols; k++) {
-                C(i, j) += A(i, k) * B_T(j, k);
+                Cij += A(i, k) * B_T(j, k);
             }
+            C(i, j) = Cij;
         }
     }
     return C;

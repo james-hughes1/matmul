@@ -42,7 +42,7 @@ Matrix method3::matmul(Matrix A, Matrix B, int block_size) {
                 int lim_k = std::min(k + block_size, A.n_cols);
                 for (int ii = i; ii < lim_i; ii++) {
                     for (int jj = j; jj < lim_j; jj++) {
-                        double sum = C(ii, jj);
+                        double sum = 0;
                         for (int kk = k; kk < lim_k; kk++) {
                             sum += A(ii, kk) * B_T(jj, kk);
                         }
